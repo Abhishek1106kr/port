@@ -1,19 +1,14 @@
 /** @type {import('next').NextConfig} */
-const isProd = process.env.NODE_ENV === "production";
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 const nextConfig = {
-  // Static export for GitHub Pages deployment
-  output: "export",
-  // Set basePath to /port when deploying to GitHub Pages
-  basePath,
-  // Disable image optimisation (not supported with static export)
+  // Static export — only when NEXT_PUBLIC_BASE_PATH is set (i.e., in CI/GitHub Pages)
+  ...(basePath ? { output: "export", basePath, trailingSlash: true } : {}),
   images: {
-    unoptimized: true,
+    // Next Image optimisation is unavailable in static export mode
+    unoptimized: Boolean(basePath),
     formats: ["image/avif", "image/webp"],
   },
-  // Trailing slash so paths resolve correctly on GH Pages
-  trailingSlash: true,
 };
 
 export default nextConfig;
