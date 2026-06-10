@@ -1,0 +1,216 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cream: #f0ebd6;
+  --dark: #2b2b2b;
+  --orange: rgb(249, 111, 77);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--dark);
+  overflow-x: hidden;
+}
+
+/* Ticker animation */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  animation: ticker-scroll 22s linear infinite;
+}
+
+/* Fade-up entry */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s ease forwards;
+}
+
+/* Work card hover */
+.work-card .card-overlay {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.work-card:hover .card-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.work-card img {
+  transition: transform 0.6s ease, filter 0.4s ease;
+}
+
+.work-card:hover img {
+  transform: scale(1.04);
+  filter: brightness(0.82);
+}
+
+/* Service row hover */
+.service-row .service-arrow {
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.service-row:hover .service-arrow {
+  transform: rotate(-45deg);
+  border-color: var(--dark);
+}
+
+/* Button hover states (replaces onMouseEnter/Leave) */
+.hero-cta {
+  background-color: rgb(249, 111, 77);
+  color: rgb(22, 22, 22);
+  transition: background-color 0.25s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+.hero-cta:hover { background-color: #f0ebd6; }
+
+.services-cta {
+  display: inline-block;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f0ebd6;
+  background-color: #2b2b2b;
+  text-decoration: none;
+  padding: 22px 36px;
+  border-radius: 100px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+.services-cta:hover { background-color: rgb(249, 111, 77); color: rgb(22, 22, 22); }
+
+.footer-email-btn {
+  display: inline-block;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(22, 22, 22);
+  background-color: rgb(249, 111, 77);
+  text-decoration: none;
+  padding: 22px 36px;
+  border-radius: 100px;
+  transition: background-color 0.25s ease;
+}
+.footer-email-btn:hover { background-color: #f0ebd6; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--dark); border-radius: 3px; }
+
+/* ─────────────────────────────────────────
+   SCROLL REVEAL — base state (hidden)
+   All variants start invisible.
+   The .is-visible class (added by IntersectionObserver)
+   transitions them to their final visible state.
+   transition-duration and transition-delay are set
+   inline via the ScrollReveal component props.
+───────────────────────────────────────── */
+.scroll-reveal {
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition-duration: 700ms;   /* overridden per-element via inline style */
+}
+
+/* fade-up: rises 40 px into place */
+.scroll-reveal--fade-up    { opacity: 0; transform: translateY(40px); }
+.scroll-reveal--fade-up.is-visible { opacity: 1; transform: translateY(0); }
+
+/* fade-down: drops 40 px into place */
+.scroll-reveal--fade-down  { opacity: 0; transform: translateY(-40px); }
+.scroll-reveal--fade-down.is-visible { opacity: 1; transform: translateY(0); }
+
+/* fade-left: slides in from the right */
+.scroll-reveal--fade-left  { opacity: 0; transform: translateX(50px); }
+.scroll-reveal--fade-left.is-visible { opacity: 1; transform: translateX(0); }
+
+/* fade-right: slides in from the left */
+.scroll-reveal--fade-right { opacity: 0; transform: translateX(-50px); }
+.scroll-reveal--fade-right.is-visible { opacity: 1; transform: translateX(0); }
+
+/* zoom-in: expands from 92% */
+.scroll-reveal--zoom-in    { opacity: 0; transform: scale(0.92); }
+.scroll-reveal--zoom-in.is-visible { opacity: 1; transform: scale(1); }
+
+/* zoom-out: contracts from 108% */
+.scroll-reveal--zoom-out   { opacity: 0; transform: scale(1.08); }
+.scroll-reveal--zoom-out.is-visible { opacity: 1; transform: scale(1); }
+
+/* ─────────────────────────────────────────
+   GALLERY — image hover zoom + caption reveal
+   .gallery-card is the hover root on each image wrapper.
+───────────────────────────────────────── */
+.gallery-img {
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.gallery-card:hover .gallery-img {
+  transform: scale(1.05);
+}
+
+.gallery-caption {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+.gallery-card:hover .gallery-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─────────────────────────────────────────
+   ANGEL — idle bob + glow
+   The scroll-linked translate/rotate/scale
+   is applied inline via requestAnimationFrame.
+   These classes layer on top for life-like feel.
+───────────────────────────────────────── */
+@keyframes angel-bob {
+  0%   { transform: translateY(0px)    rotate(0deg); }
+  30%  { transform: translateY(-10px)  rotate(2deg); }
+  60%  { transform: translateY(-4px)   rotate(-1deg); }
+  80%  { transform: translateY(-14px)  rotate(3deg); }
+  100% { transform: translateY(0px)    rotate(0deg); }
+}
+
+@keyframes angel-glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(249,111,77,0.55))
+                     drop-shadow(0 4px 16px rgba(0,0,0,0.35)); }
+  50%       { filter: drop-shadow(0 0 18px rgba(249,111,77,0.85))
+                     drop-shadow(0 6px 22px rgba(0,0,0,0.4)); }
+}
+
+.angel-bob {
+  animation:
+    angel-bob        2.8s ease-in-out infinite,
+    angel-glow-pulse 3.6s ease-in-out infinite;
+}
+
+.angel-canvas {
+  /* White background stripped by canvas pixel manipulation at load time.
+     Drop-shadow applied here so the glow pulse from .angel-bob works. */
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
