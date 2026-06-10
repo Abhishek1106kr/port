@@ -94,7 +94,8 @@ export default function Angel() {
       canvas.style.width  = `${SIZE}px`;
       canvas.style.height = `${SIZE}px`;
     };
-    img.src = "/images/angel.png";
+    const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+    img.src = `${BASE}/images/angel.png`;
   }, []);
 
   /* ── Scroll-linked flight path ── */
