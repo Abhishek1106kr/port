@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/Image";
 
 const socials = [
   { label: "GitHub", href: "https://github.com/Abhishek1106kr" },

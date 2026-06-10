@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/Image";
 import ScrollReveal from "@/components/ScrollReveal";
 import ScrollParallax from "@/components/ScrollParallax";
 
